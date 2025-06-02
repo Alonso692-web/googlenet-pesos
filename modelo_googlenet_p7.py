@@ -1,4 +1,3 @@
-```python
 import tkinter as tk
 import tkinter.font as tkfont
 from PIL import Image, ImageTk
