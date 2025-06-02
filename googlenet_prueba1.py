@@ -11,7 +11,7 @@ import subprocess
 # --- Configuración modelo ---
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 class_names = ['clase0','clase1','clase2','clase3','clase4','clase5','clase6','clase7','clase8']
-model = models.googlenet(pretrained=False, aux_logits=False)  # Desactiva los clasificadores auxiliares
+model = models.googlenet(weigths=None, aux_logits=False)  # Desactiva los clasificadores auxiliares
 model.fc = nn.Linear(model.fc.in_features, len(class_names))
 model.load_state_dict(torch.load('G19.pth', map_location=device))
 model.to(device)
