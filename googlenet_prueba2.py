@@ -15,15 +15,15 @@ class_names = ['R5', 'R6', 'R7', 'R8', 'R9', 'V1', 'V2', 'V3', 'V4']
 
 # Textos descriptivos para cada clase
 class_descriptions = {
-    'R5': "Se detectó la clase R5. Esta clase es la primera de las clases 'R' y representa objetos con características específicas de tipo A.",
-    'R6': "Se detectó la clase R6. Esta clase sigue a R5 y se utiliza para identificar elementos con propiedades de tipo B.",
-    'R7': "Se detectó la clase R7. Corresponde a la tercera clase 'R', usualmente asociada a patrones de tipo C.",
-    'R8': "Se detectó la clase R8. Esta clase se distingue por identificar configuraciones de tipo D.",
-    'R9': "Se detectó la clase R9. Es la última clase del grupo 'R', relacionada con escenarios de tipo E.",
-    'V1': "Se detectó la clase V1. Iniciando el grupo 'V', esta clase se enfoca en variaciones de tipo F.",
-    'V2': "Se detectó la clase V2. Similar a V1, pero con matices que la clasifican como tipo G.",
-    'V3': "Se detectó la clase V3. Esta clase representa una subcategoría importante dentro del grupo 'V', tipo H.",
-    'V4': "Se detectó la clase V4. Es la clase final del grupo 'V', cubriendo los casos restantes de tipo I."
+    'R5': "Inicio de la floración; se observan las primeras flores abiertas.",
+    'R6': "Floración plena; la mayoría de las plantas tienen flores.",
+    'R7': "Formación de vainas; las primeras vainas jóvenes son visibles.",
+    'R8': "Llenado de vainas; las semillas dentro de las vainas comienzan a desarrollarse.",
+    'R9': "Madurez fisiológica; las semillas alcanzan su tamaño y peso máximo, y las vainas comienzan a secarse.",
+    'V1': "Emergencia del primer par de hojas unifoliadas completamente abiertas.",
+    'V2': "Aparición del primer par de hojas trifoliadas completamente desarrolladas.",
+    'V3': "Desarrollo del segundo par de hojas trifoliadas.",
+    'V4': "Desarrollo del tercer par de hojas trifoliadas; la planta continúa acumulando biomasa"
 }
 
 
