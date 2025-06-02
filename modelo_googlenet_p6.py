@@ -23,7 +23,7 @@ class_descriptions = {
     'V4': "Desarrollo del tercer par de hojas trifoliadas; la planta continúa acumulando biomasa"
 }
 
-model = models.googlenet(weights=None, aux_logits=False)
+model = models.googlenet(pretrained=False, aux_logits=False)
 model.fc = nn.Linear(model.fc.in_features, len(class_names))
 model.load_state_dict(torch.load('G19.pth', map_location=device))
 model.to(device)
@@ -37,10 +37,13 @@ transform = transforms.Compose([
 ])
 
 # --- Interfaz Tkinter ---
-BASE_FONT_SIZE = 22    # Tamaño base de fuente para todos los widgets
-BUTTON_FONT_SIZE = BASE_FONT_SIZE + 6   # Tamaño de fuente para los botones
-STAGE_FONT_SIZE  = BASE_FONT_SIZE + 8   # Tamaño de fuente para el subtítulo "Etapa: ..."
-INITIAL_SCREEN_WIDTH = 900
+BASE_FONT_SIZE   = 20    # Tamaño base de fuente para textos generales
+BUTTON_FONT_SIZE = 18    # Tamaño de fuente para los botones
+STAGE_FONT_SIZE  = 24    # Tamaño de fuente para el subtítulo "Etapa: ..."
+BUTTON_FONT_FAM  = "Arial"        # Familia de fuente para botones
+STAGE_FONT_FAM   = "Helvetica"    # Familia de fuente para el subtítulo
+IMAGE_FONT_FAM   = "Helvetica"    # Fuente del placeholder de "Imagen"
+INITIAL_SCREEN_WIDTH  = 900
 INITIAL_SCREEN_HEIGHT = 700
 
 root = tk.Tk()
@@ -48,13 +51,13 @@ root.title('Clasificador de Etapas de Crecimiento')
 root.geometry(f"{INITIAL_SCREEN_WIDTH}x{INITIAL_SCREEN_HEIGHT}")
 root.minsize(700, 500)
 
-# --- Ajuste global de fuentes nombradas ---
+# --- Ajuste global de fuentes nombradas para textos generales (Etiquetas, Menús, etc.) ---
 default_font = tkfont.nametofont("TkDefaultFont")
-default_font.configure(size=BASE_FONT_SIZE)
-text_font = tkfont.nametofont("TkTextFont")
-text_font.configure(size=BASE_FONT_SIZE)
-menu_font = tkfont.nametofont("TkMenuFont")
-menu_font.configure(size=BASE_FONT_SIZE)
+default_font.configure(size=BASE_FONT_SIZE, family="Sans")    # "Sans" genérico para textos
+text_font    = tkfont.nametofont("TkTextFont")
+text_font.configure(size=BASE_FONT_SIZE, family="Sans")
+menu_font    = tkfont.nametofont("TkMenuFont")
+menu_font.configure(size=BASE_FONT_SIZE, family="Sans")
 
 # Grid principal (root) se expande
 root.grid_rowconfigure(0, weight=1)
@@ -77,7 +80,7 @@ image_label = tk.Label(
     left_frame,
     text='Imagen',
     fg='gray',
-    font=tkfont.Font(size=BASE_FONT_SIZE + 8, weight='bold')
+    font=tkfont.Font(family=IMAGE_FONT_FAM, size=BASE_FONT_SIZE + 8, weight='bold')
 )
 image_label.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
@@ -89,18 +92,18 @@ right_frame.grid_rowconfigure(1, weight=1)  # Descripción
 right_frame.grid_rowconfigure(2, weight=0)  # Botones
 right_frame.grid_columnconfigure(0, weight=1)
 
-# Subtítulo “Etapa: ...” con fuente más grande y en negrita
+# Subtítulo “Etapa: ...” con fuente específica y en negrita
 stage_label = tk.Label(
     right_frame,
     text='',
     fg='blue',
-    font=tkfont.Font(size=STAGE_FONT_SIZE, weight='bold'),
+    font=tkfont.Font(family=STAGE_FONT_FAM, size=STAGE_FONT_SIZE, weight='bold'),
     anchor='nw',
     justify=tk.LEFT
 )
 stage_label.grid(row=0, column=0, sticky="nw", padx=15, pady=(15, 5))
 
-# Etiqueta para mostrar la descripción (usa la fuente por defecto agrandada)
+# Etiqueta para mostrar la descripción (usa la fuente global “Sans” agrandada)
 status_label = tk.Label(
     right_frame,
     text='Esperando acción...',
@@ -114,21 +117,21 @@ button_frame = tk.Frame(right_frame)
 button_frame.grid(row=2, column=0, sticky="sew", padx=5, pady=10)
 button_frame.grid_columnconfigure(0, weight=1)
 
-# “Tomar Foto” con fuente grande y en negrita
+# “Tomar Foto” con fuente Arial grande y en negrita
 capture_btn = tk.Button(
     button_frame,
     text='Tomar Foto',
-    font=tkfont.Font(size=BUTTON_FONT_SIZE, weight='bold'),
+    font=tkfont.Font(family=BUTTON_FONT_FAM, size=BUTTON_FONT_SIZE, weight='bold'),
     command=lambda: tomar_y_clasificar(),
     height=2
 )
 capture_btn.grid(row=0, column=0, sticky="ew", pady=(0, 8))
 
-# “Limpiar” con fuente grande
+# “Limpiar” con fuente Arial grande
 clear_btn = tk.Button(
     button_frame,
     text='Limpiar',
-    font=tkfont.Font(size=BUTTON_FONT_SIZE),
+    font=tkfont.Font(family=BUTTON_FONT_FAM, size=BUTTON_FONT_SIZE),
     command=lambda: limpiar(),
     state=tk.DISABLED,
     height=2
@@ -214,7 +217,7 @@ def tomar_y_clasificar():
             f"Descripción no encontrada para: {predicted_class_name}"
         )
 
-        # Mostrar la etapa clasificada en grande y en negrita
+        # Mostrar la etapa clasificada con fuente Helvetica grande y negrita
         stage_label.config(text=f"Etapa: {predicted_class_name}")
         status_label.config(text=description)
     except Exception as e:
@@ -239,7 +242,7 @@ def limpiar():
         image=None,
         text='Imagen',
         fg='gray',
-        font=tkfont.Font(size=BASE_FONT_SIZE + 8, weight='bold')
+        font=tkfont.Font(family=IMAGE_FONT_FAM, size=BASE_FONT_SIZE + 8, weight='bold')
     )
     image_label.image = None
     stage_label.config(text='')
