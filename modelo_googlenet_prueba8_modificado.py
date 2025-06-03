@@ -37,9 +37,9 @@ transform = transforms.Compose([
 ])
 
 # --- Interfaz Tkinter ---
-BASE_FONT_SIZE   = 20    # Tamaño base de fuente para textos generales
-BUTTON_FONT_SIZE = 18    # Tamaño de fuente para los botones
-STAGE_FONT_SIZE  = 24    # Tamaño de fuente para el subtítulo "Etapa: ..."
+BASE_FONT_SIZE   = 20-8    # Tamaño base de fuente para textos generales
+BUTTON_FONT_SIZE = 18-8    # Tamaño de fuente para los botones
+STAGE_FONT_SIZE  = 24-8    # Tamaño de fuente para el subtítulo "Etapa: ..."
 # Ahora la descripción usa la misma fuente que los botones:
 DESC_FONT_SIZE   = BUTTON_FONT_SIZE   # Tamaño de fuente para la descripción (igual que botones)
 BUTTON_FONT_FAM  = "Arial"        # Familia de fuente para botones
@@ -50,8 +50,9 @@ INITIAL_SCREEN_WIDTH  = 320
 INITIAL_SCREEN_HEIGHT = 480
 
 root = tk.Tk()
-root.title('Clasificador de Etapas de Crecimiento')
-root.geometry(f"{INITIAL_SCREEN_WIDTH}x{INITIAL_SCREEN_HEIGHT}")
+root.title('Clasificador de Etapas de Frijol')
+root.attributes('-zoomed', True)
+#root.geometry(f"{INITIAL_SCREEN_WIDTH}x{INITIAL_SCREEN_HEIGHT}")
 # Ajustado para pantalla 320x480
 # root.minsize(700, 500)  # Eliminado para pantallas pequeñas
 
@@ -193,6 +194,7 @@ def tomar_y_clasificar():
     ruta = os.path.join(save_dir, f'captura_{timestamp}.jpg')
     try:
         subprocess.run(
+            #['libcamera-jpeg', '-n', '-o', ruta, '-t', '200', '--width', '1280', '--height', '960', '--hflip', '--vflip'],
             ['libcamera-jpeg', '-n', '-o', ruta, '-t', '200', '--width', '1280', '--height', '960'],
             check=True
         )
